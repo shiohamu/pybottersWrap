@@ -49,7 +49,7 @@ class marketsFTX:
         """
         if market == None: market = self.pair
         params = page
-        params = self.set_parameters(params,resolution=resolution)
+        params = params.setdefault("resolution", resolution)
         r = await self.client.get(
             "/markets/{}/candles".format(market),
             params=params

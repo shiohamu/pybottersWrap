@@ -111,11 +111,11 @@ class ordersFTX:
             "type": order_type,
             "size": size,
         }
-        if order_type in "market": params.setdefault("price", None)
-        elif order_type in "limit": params.setdefault("price", price)
+        if "market" in order_type: params.setdefault("price", None)
+        elif "limit" in order_type: params.setdefault("price", price)
         if reduceOnly: params.setdefault("reduceOnly", reduceOnly)
         if ioc: params.setdefault("ioc", ioc)
-        if postOnly and order_type in "limit": params.setdefault("postOnly", postOnly)
+        if postOnly and "limit" in order_type: params.setdefault("postOnly", postOnly)
         if clientId != None: params.setdefault("clientId", clientId)
         if rejectOnPriceBand: params.setdefault("rejectOnPriceBand", rejectOnPriceBand)
         if rejectAfterTs != None: params.setdefault("rejectAfterTs", rejectAfterTs)
@@ -155,11 +155,11 @@ class ordersFTX:
             "type": order_type,
         }
 
-        if not reduceOnly: params.setdefault("reduceOnly", reduceOnly)
-        if not retryUntilFilled: params.setdefault("retryUntilFilled", retryUntilFilled)
+        if reduceOnly: params.setdefault("reduceOnly", reduceOnly)
+        if retryUntilFilled: params.setdefault("retryUntilFilled", retryUntilFilled)
 
         # order type detect
-        if order_type in "trailingStop":
+        if "trailingStop" in order_type:
             params.setdefault("trailValue", trailValue)
             
         elif order_type in ("stop", "takeProfit"):
@@ -197,7 +197,7 @@ class ordersFTX:
             "durationSecounds": durationSeconds,
         }
 
-        if not randomizeSize: params.setdefault("randomizeSize", randomizeSize)
+        if randomizeSize: params.setdefault("randomizeSize", randomizeSize)
         if maxSpread != None: params.setdefault("maxSpread", maxSpread)
         if maxIndividualOrderSize != None: params.setdefault("maxIndividualOrderSize", maxIndividualOrderSize)
         if maxDistanceThroughBook != None: params.setdefault("maxDistanceThroughBook", maxDistanceThroughBook)
@@ -339,8 +339,8 @@ class ordersFTX:
         params = {}
         if market != None: params.setdefault("market", market)
         if side != None: params.setdefault("side", side)
-        if not conditionalOrdersOnly: params.setdefault("conditionalOrdersOnly", conditionalOrdersOnly)
-        if not limitOrdersOnly: params.setdefault("limitOrdersOnly", limitOrdersOnly)
+        if conditionalOrdersOnly: params.setdefault("conditionalOrdersOnly", conditionalOrdersOnly)
+        if limitOrdersOnly: params.setdefault("limitOrdersOnly", limitOrdersOnly)
 
         r = await self.client.delete(
             "/orders",
